@@ -13,7 +13,8 @@ async function main({ rootDirectory }) {
     const setupDatabaseAnswer = reader.question(
       "Do you want to setup the database? (y/n) "
     );
-    const setupDatabase = setupDatabaseAnswer?.trim().toLowerCase() === "y";
+    const setupDatabase =
+      !!setupDatabaseAnswer && setupDatabaseAnswer.trim().toLowerCase() === "y";
 
     if (setupDatabase) {
       const dataSetupResult = spawnSync(
