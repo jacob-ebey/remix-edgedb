@@ -30,10 +30,6 @@ jobs:
   integration:
     timeout-minutes: 30
     runs-on: ubuntu-latest
-    services:
-      edgedb:
-        env:
-          EDGEDB_SERVER_SECURITY: insecure_dev_mode
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -68,6 +64,8 @@ jobs:
         run: npx playwright install --with-deps
       - name: 📥 Install EdgeDB
         uses: edgedb/setup-edgedb@v1
+        env:
+          EDGEDB_SERVER_SECURITY: insecure_dev_mode
       - name: Setup .env
         run: cp ./.env.example ./.env
       - name: Run integration tests
