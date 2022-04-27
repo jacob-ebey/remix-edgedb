@@ -35,6 +35,8 @@ jobs:
         image: edgedb/edgedb:1-rc2
         env:
           EDGEDB_SERVER_SECURITY: insecure_dev_mode
+        ports:
+          - 5656:5656
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
