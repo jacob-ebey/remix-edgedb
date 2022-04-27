@@ -114,7 +114,12 @@ export default function Login() {
 
               <br />
 
-              <input type="submit" value="Login" disabled={submitting} />
+              <input
+                type="submit"
+                value="Login"
+                id="login"
+                disabled={submitting}
+              />
             </fieldset>
             <p>
               Don't have an account? <Link to="/signup">Signup</Link>

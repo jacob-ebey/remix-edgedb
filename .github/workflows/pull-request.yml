@@ -1,0 +1,80 @@
+name: Pull Request
+on: [pull_request]
+jobs:
+  lint:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "14.x"
+      - name: Install dependencies
+        uses: bahmutov/npm-install@v1
+      - name: Lint
+        run: npm run lint
+
+  typecheck:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "14.x"
+      - name: Install dependencies
+        uses: bahmutov/npm-install@v1
+      - name: Typecheck
+        run: npm run typecheck
+
+  integration:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    services:
+      edgedb:
+        image: edgedb/edgedb:1-rc2
+        env:
+          EDGEDB_SERVER_SECURITY: insecure_dev_mode
+        ports:
+          - 5656:5656
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "14.x"
+      - name: Install dependencies
+        uses: bahmutov/npm-install@v1
+
+      - name: 🕵️‍♂️ Get current Playwright version
+        id: playwright-version
+        shell: bash
+        run: |
+          playwright_version=$(npm info @playwright/test version)
+          echo "::set-output name=version::${playwright_version}"
+      - name: 🤖 Cache Playwright binaries
+        uses: actions/cache@v3
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-cache-playwright-${{ steps.playwright-version.outputs.version }}
+
+      - name: 🖨️ Playwright info
+        shell: bash
+        run: |
+          echo "OS: ${{ matrix.os }}"
+          echo "Playwright version: ${{ steps.playwright-version.outputs.version }}"
+          echo "Playwright install dir: ~/.cache/ms-playwright"
+          echo "Cache key: ${{ runner.os }}-cache-playwright-${{ steps.playwright-version.outputs.version }}"
+          echo "Cache hit: ${{ steps.playwright-cache.outputs.cache-hit == 'true' }}"
+      - name: 📥 Install Playwright
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps
+      - name: 📥 Install EdgeDB
+        uses: edgedb/setup-edgedb@v1
+        with:
+          server-dsn: edgedb://localhost:5656
+          instance-name: ci_edgedb_instance
+      - name: Setup .env
+        run: cp ./.env.example ./.env
+      - name: Run integration tests
+        run: npm run integration

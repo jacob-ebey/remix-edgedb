@@ -154,7 +154,12 @@ export default function Tasks() {
                 </label>
               )}
               <br />
-              <input type="submit" value="Create" disabled={submitting} />
+              <input
+                type="submit"
+                value="Create"
+                id="create"
+                disabled={submitting}
+              />
             </fieldset>
           </Form>
         </section>

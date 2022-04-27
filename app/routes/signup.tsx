@@ -128,7 +128,12 @@ export default function Signup() {
 
               <br />
 
-              <input type="submit" value="Signup" disabled={submitting} />
+              <input
+                type="submit"
+                value="Signup"
+                id="signup"
+                disabled={submitting}
+              />
             </fieldset>
             <p>
               Already have an account? <Link to="/login">Login</Link>
