@@ -9,10 +9,12 @@ module.exports = main;
  */
 async function main({ rootDirectory }) {
   const reader = readline.createInterface({ input, output });
+  let failed = false;
   try {
-    const setupDatabaseAnswer = reader.question(
+    const setupDatabaseAnswer = await reader.question(
       "Do you want to setup the database? (y/n) "
     );
+    console.log(setupDatabaseAnswer);
     const setupDatabase =
       !!setupDatabaseAnswer && setupDatabaseAnswer.trim().toLowerCase() === "y";
 
@@ -26,10 +28,14 @@ async function main({ rootDirectory }) {
         }
       );
       if (dataSetupResult.status !== 0) {
-        throw new Error("Failed to setup the database");
+        console.error("Failed to setup the database");
+        failed = true;
       }
     }
   } finally {
     reader.close();
+  }
+  if (failed) {
+    process.exit(1);
   }
 }
