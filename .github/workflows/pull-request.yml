@@ -71,8 +71,9 @@ jobs:
         run: npx playwright install --with-deps
       - name: 📥 Install EdgeDB
         uses: edgedb/setup-edgedb@v1
-        env:
-          EDGEDB_SERVER_SECURITY: insecure_dev_mode
+        with:
+          server-dsn: edgedb://localhost:5656
+          instance-name: ci_edgedb_instance
       - name: Setup .env
         run: cp ./.env.example ./.env
       - name: Run integration tests
