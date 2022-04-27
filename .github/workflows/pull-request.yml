@@ -62,6 +62,10 @@ jobs:
       - name: 📥 Install Playwright
         if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps
+      - name: 📥 Install EdgeDB
+        run: curl --proto '=https' --tlsv1.2 -sSf https://sh.edgedb.com | sh
+      - name: Setup EdgeDB
+        run: edgedb project init --non-interactive
       - name: Setup .env
         run: cp ./.env.example ./.env
       - name: Run integration tests
