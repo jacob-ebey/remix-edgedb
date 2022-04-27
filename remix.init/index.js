@@ -43,6 +43,10 @@ async function main({ rootDirectory }) {
   } finally {
     reader.close();
   }
+
+  console.log(
+    "if everything went well, you should be able to run the project now. Run `npm run dev` to get going."
+  );
   if (failed) {
     process.exit(1);
   }
