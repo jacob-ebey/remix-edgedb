@@ -62,5 +62,7 @@ jobs:
       - name: 📥 Install Playwright
         if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps
+      - name: Setup .env
+        run: cp ./.env.example ./.env
       - name: Run integration tests
         run: npm run integration
