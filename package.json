@@ -7,7 +7,9 @@
   "scripts": {
     "build": "remix build",
     "dev": "remix dev",
-    "start": "remix-serve build"
+    "start": "remix-serve build",
+    "lint": "eslint .",
+    "typecheck": "tsc -b"
   },
   "dependencies": {
     "@remix-run/node": "^1.4.2",
