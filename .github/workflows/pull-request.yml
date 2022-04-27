@@ -64,9 +64,6 @@ jobs:
         run: npx playwright install --with-deps
       - name: 📥 Install EdgeDB
         uses: edgedb/setup-edgedb@v1
-      - name: Setup EdgeDB
-        run: edgedb project init --non-interactive
-        continue-on-error: true
       - name: Setup .env
         run: cp ./.env.example ./.env
       - name: Run integration tests
