@@ -2,11 +2,23 @@
 
 - [Remix Docs](https://remix.run/docs)
 
-## Development
+## Prerecs
 
-### Setup the DB
+- Node 14+ and NPM
+- [EdgeDB CLI](https://www.edgedb.com/install/)
 
-Install the [EdgeDB CLI](https://www.edgedb.com/install/) then from your terminal:
+## Creating a new project from this repo
+
+Use your terminal to run create-remix and point it to this repo:
+```sh
+npx create-remix@latest --template jacob-ebey/remix-edgedb
+```
+
+This will ask you if you want to setup the DB. If you haven't already installed the [EdgeDB CLI](https://www.edgedb.com/install/) this will fail, so answer no. You can manually setup the DB later by following the steps below.
+
+## Setup the DB
+
+Make sure you've installed the [EdgeDB CLI](https://www.edgedb.com/install/), then from your terminal:
 
 ```sh
 edgedb project init
@@ -14,7 +26,7 @@ edgedb project init
 
 This creates all the nesesary resources for local development and run an initial migration for you.
 
-### Run the app
+## Development
 
 From your terminal:
 
