@@ -41,13 +41,11 @@ type LoaderData = {
 
 export const loader: LoaderFunction = async ({ request }) => {
   const userId = await getUserId(request);
-  console.log({ userId });
 
   return json<LoaderData>({ loggedIn: Boolean(userId) });
 };
 
 export const unstable_shouldReload: ShouldReloadFunction = ({ submission }) => {
-  console.log(submission);
   if (
     submission?.action.startsWith("/login") ||
     submission?.action.startsWith("/logout") ||
