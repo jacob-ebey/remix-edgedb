@@ -1,8 +1,8 @@
-# Welcome to Remix!
+# Welcome to Remix + EdgeDB!
 
 - [Remix Docs](https://remix.run/docs)
 
-## Prerecs
+## Prerequisites
 
 - Node 14+ and NPM
 - [EdgeDB CLI](https://www.edgedb.com/install/)
@@ -24,7 +24,7 @@ Make sure you've installed the [EdgeDB CLI](https://www.edgedb.com/install/), th
 edgedb project init
 ```
 
-This creates all the nesesary resources for local development and run an initial migration for you.
+This creates all the nesesary resources for local development and runs an initial migration for you.
 
 ## Development
 
